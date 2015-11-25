@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Reactstudy by jiaxf</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Reactstudy</h1>
+      <h2 class="project-tagline"></h2>
+      <a href="https://github.com/jiaxf/ReactStudy" class="btn">View on GitHub</a>
+      <a href="https://github.com/jiaxf/ReactStudy/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/jiaxf/ReactStudy/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <p>This is a collection of simple demos of React.js.</p>
+
+<p>These demos are purposely written in a simple and clear style. You will find no difficulty in following them to learn the powerful library.</p>
+
+<h2>
+<a id="related-demos" class="anchor" href="#related-demos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Related Demos</h2>
+
+<ul>
+<li><a href="https://github.com/ruanyf/webpack-demos">Webpack Demos</a></li>
+<li><a href="https://github.com/ruanyf/flux-for-stupid-people-demo">Flux Demo 01</a></li>
+<li><a href="https://github.com/ruanyf/flux-todomvc-demo">Flux Demo 02</a></li>
+</ul>
+
+<h2>
+<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use</h2>
+
+<p>First copy the repo into your disk.</p>
+
+<div class="highlight highlight-source-shell"><pre>$ git clone git@github.com:ruanyf/react-demos.git</pre></div>
+
+<p>Then play with the source files under the repo's demo* directories.</p>
+
+<h2>
+<a id="html-template" class="anchor" href="#html-template" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTML Template</h2>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span>&gt;
+  &lt;<span class="pl-ent">head</span>&gt;
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>../build/react.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>../build/react-dom.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>../build/browser.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+  &lt;/<span class="pl-ent">head</span>&gt;
+  &lt;<span class="pl-ent">body</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/babel<span class="pl-pds">"</span></span>&gt;
+
+      // ** Our code goes here! **
+
+    &lt;/<span class="pl-ent">script</span>&gt;
+  &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<h2>
+<a id="index" class="anchor" href="#index" aria-hidden="true"><span class="octicon octicon-link"></span></a>Index</h2>
+
+<ol>
+<li><a href="#demo01-render-jsx-source">Render JSX</a></li>
+<li><a href="#demo02-use-javascript-in-jsx-source">Use JavaScript in JSX</a></li>
+<li><a href="#demo03-use-array-in-jsx-source">Use array in JSX</a></li>
+<li><a href="#demo04-define-a-component-source">Define a component</a></li>
+<li><a href="#demo05-thispropschildren-source">this.props.children</a></li>
+<li><a href="#demo06-proptypes-source">PropTypes</a></li>
+<li><a href="#demo07-finding-a-dom-node-source">Finding a DOM node</a></li>
+<li><a href="#demo08-thisstate-source">this.state</a></li>
+<li><a href="#demo09-form-source">Form</a></li>
+<li><a href="#demo10-component-lifecycle-source">Component Lifecycle</a></li>
+<li><a href="#demo11-ajax-source">Ajax</a></li>
+<li><a href="#demo12-display-value-from-a-promise-source">Display value from a Promise</a></li>
+<li><a href="#demo13-server-side-rendering-source">Server-side rendering</a></li>
+</ol>
+
+<hr>
+
+<h2>
+<a id="demo01-render-jsx-source" class="anchor" href="#demo01-render-jsx-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo01: Render JSX (<a href="https://github.com/ruanyf/react-demos/blob/master/demo01/index.html">source</a>)</h2>
+
+<p>The template syntax in React is called <a href="http://facebook.github.io/react/docs/displaying-data.html#jsx-syntax">JSX</a>. It is allowed in JSX to put HTML tags directly into JavaScript codes. <code>ReactDOM.render()</code> is the method which translates JSX into HTML, and renders it into the specified DOM node.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">ReactDOM</span>.<span class="pl-en">render</span>(
+  <span class="pl-k">&lt;</span>h1<span class="pl-k">&gt;</span>Hello, world<span class="pl-k">!</span><span class="pl-k">&lt;</span><span class="pl-k">/</span>h1<span class="pl-k">&gt;</span>,
+  <span class="pl-smi">document</span>.<span class="pl-c1">getElementById</span>(<span class="pl-s"><span class="pl-pds">'</span>example<span class="pl-pds">'</span></span>)
+);</pre></div>
+
+<p>Attention, you have to use <code>&lt;script type="text/babel"&gt;</code> to indicate JSX codes, and include <code>browser.min.js</code>, which is a <a href="https://babeljs.io/docs/usage/browser/">browser version</a> of Babel and could be get inside a <a href="https://www.npmjs.com/package/babel-core">babel-core</a> npm release, to actually perform the transformation in the browser.</p>
+
+<p>Before v0.14, React use <code>JSTransform.js</code> to translate <code>&lt;script type="text/jsx"&gt;</code>. It has been deprecated (<a href="https://facebook.github.io/react/blog/2015/06/12/deprecating-jstransform-and-react-tools.html">more info</a>).</p>
+
+<h2>
+<a id="demo02-use-javascript-in-jsx-source" class="anchor" href="#demo02-use-javascript-in-jsx-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo02: Use JavaScript in JSX (<a href="https://github.com/ruanyf/react-demos/blob/master/demo02/index.html">source</a>)</h2>
+
+<p>You could also use JavaScript in JSX. It takes angle brackets (&lt;) as the beginning of HTML syntax, and curly brackets ({) as the beginning of JavaScript syntax.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> names <span class="pl-k">=</span> [<span class="pl-s"><span class="pl-pds">'</span>Alice<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Emily<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Kate<span class="pl-pds">'</span></span>];
+
+<span class="pl-smi">ReactDOM</span>.<span class="pl-en">render</span>(
+  <span class="pl-k">&lt;</span>div<span class="pl-k">&gt;</span>
+  {
+    <span class="pl-smi">names</span>.<span class="pl-en">map</span>(<span class="pl-k">function</span> (<span class="pl-smi">name</span>) {
+      <span class="pl-k">return</span> <span class="pl-k">&lt;</span>div<span class="pl-k">&gt;</span>Hello, {name}<span class="pl-k">!</span><span class="pl-k">&lt;</span><span class="pl-k">/</span>div<span class="pl-k">&gt;</span>
+    })
+  }
+  <span class="pl-k">&lt;</span><span class="pl-k">/</span>div<span class="pl-k">&gt;</span>,
+  <span class="pl-smi">document</span>.<span class="pl-c1">getElementById</span>(<span class="pl-s"><span class="pl-pds">'</span>example<span class="pl-pds">'</span></span>)
+);</pre></div>
+
+<h2>
+<a id="demo03-use-array-in-jsx-source" class="anchor" href="#demo03-use-array-in-jsx-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo03: Use array in JSX (<a href="https://github.com/ruanyf/react-demos/blob/master/demo03/index.html">source</a>)</h2>
+
+<p>If a JavaScript variable is array, JSX will implicitly concat all members of the array.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> arr <span class="pl-k">=</span> [
+  <span class="pl-k">&lt;</span>h1<span class="pl-k">&gt;</span>Hello world<span class="pl-k">!</span><span class="pl-k">&lt;</span><span class="pl-k">/</span>h1<span class="pl-k">&gt;</span>,
+  <span class="pl-k">&lt;</span>h2<span class="pl-k">&gt;</span>React is awesome<span class="pl-k">&lt;</span><span class="pl-k">/</span>h2<span class="pl-k">&gt;</span>,
+];
+<span class="pl-smi">ReactDOM</span>.<span class="pl-en">render</span>(
+  <span class="pl-k">&lt;</span>div<span class="pl-k">&gt;</span>{arr}<span class="pl-k">&lt;</span><span class="pl-k">/</span>div<span class="pl-k">&gt;</span>,
+  <span class="pl-smi">document</span>.<span class="pl-c1">getElementById</span>(<span class="pl-s"><span class="pl-pds">'</span>example<span class="pl-pds">'</span></span>)
+);</pre></div>
+
+<h2>
+<a id="demo04-define-a-component-source" class="anchor" href="#demo04-define-a-component-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo04: Define a component (<a href="https://github.com/ruanyf/react-demos/blob/master/demo04/index.html">source</a>)</h2>
+
+<p><code>React.createClass()</code> creates a component class, which implements a render method to return an component instance of the class. You don't need to call <code>new</code> on the class in order to get an instance, just use it as a normal HTML tag.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> HelloMessage <span class="pl-k">=</span> <span class="pl-smi">React</span>.<span class="pl-en">createClass</span>({
+  <span class="pl-en">render</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {
+    <span class="pl-k">return</span> <span class="pl-k">&lt;</span>h1<span class="pl-k">&gt;</span>Hello {<span class="pl-smi">this</span>.<span class="pl-smi">props</span>.<span class="pl-c1">name</span>}<span class="pl-k">&lt;</span><span class="pl-k">/</span>h1<span class="pl-k">&gt;</span>;
+  }
+});
+
+<span class="pl-smi">ReactDOM</span>.<span class="pl-en">render</span>(
+  <span class="pl-k">&lt;</span>HelloMessage name<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>John<span class="pl-pds">"</span></span> <span class="pl-k">/</span><span class="pl-k">&gt;</span>,
+  <span class="pl-smi">document</span>.<span class="pl-c1">getElementById</span>(<span class="pl-s"><span class="pl-pds">'</span>example<span class="pl-pds">'</span></span>)
+);</pre></div>
+
+<p>Components can have attributes, and you can use <code>this.props.[attribute]</code> to access them, just like <code>this.props.name</code> of <code>&lt;HelloMessage name="John" /&gt;</code> is John.</p>
+
+<h2>
+<a id="demo05-thispropschildren-source" class="anchor" href="#demo05-thispropschildren-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo05: this.props.children (<a href="https://github.com/ruanyf/react-demos/blob/master/demo05/index.html">source</a>)</h2>
+
+<p>React uses <code>this.props.children</code> to access a component's children nodes.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> NotesList <span class="pl-k">=</span> <span class="pl-smi">React</span>.<span class="pl-en">createClass</span>({
+  <span class="pl-en">render</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {
+    <span class="pl-k">return</span> (
+      <span class="pl-k">&lt;</span>ol<span class="pl-k">&gt;</span>
+      {
+        <span class="pl-smi">React</span>.<span class="pl-c1">C</span>hildren.<span class="pl-en">map</span>(<span class="pl-smi">this</span>.<span class="pl-smi">props</span>.<span class="pl-smi">children</span>, <span class="pl-k">function</span> (<span class="pl-smi">child</span>) {
+          <span class="pl-k">return</span> <span class="pl-k">&lt;</span>li<span class="pl-k">&gt;</span>{child}<span class="pl-k">&lt;</span><span class="pl-k">/</span>li<span class="pl-k">&gt;</span>;
+        })
+      }
+      <span class="pl-k">&lt;</span><span class="pl-k">/</span>ol<span class="pl-k">&gt;</span>
+    );
+  }
+});
+
+<span class="pl-smi">ReactDOM</span>.<span class="pl-en">render</span>(
+  <span class="pl-k">&lt;</span>NotesList<span class="pl-k">&gt;</span>
+    <span class="pl-k">&lt;</span>span<span class="pl-k">&gt;</span>hello<span class="pl-k">&lt;</span><span class="pl-k">/</span>span<span class="pl-k">&gt;</span>
+    <span class="pl-k">&lt;</span>span<span class="pl-k">&gt;</span>world<span class="pl-k">&lt;</span><span class="pl-k">/</span>span<span class="pl-k">&gt;</span>
+  <span class="pl-k">&lt;</span><span class="pl-k">/</span>NotesList<span class="pl-k">&gt;</span>,
+  <span class="pl-smi">document</span>.<span class="pl-c1">body</span>
+);</pre></div>
+
+<p>Please be minded that the value of <code>this.props.children</code> has three possibilities. If the component has no children node, the value is <code>undefined</code>; If single children node, an object; If multiple children nodes, an array. You should be careful to handle it.</p>
+
+<p>React gave us an utility <a href="https://facebook.github.io/react/docs/top-level-api.html#react.children"><code>React.Children</code></a> for dealing with the <code>this.props.children</code>'s opaque data structure. You could use <code>React.Children.map</code> to iterate <code>this.props.children</code> without worring its data type being <code>undefined</code> or <code>object</code>. Check <a href="https://facebook.github.io/react/docs/top-level-api.html#react.children">official document</a> for more methods <code>React.Children</code> offers.</p>
+
+<h2>
+<a id="demo06-proptypes-source" class="anchor" href="#demo06-proptypes-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo06: PropTypes (<a href="https://github.com/ruanyf/react-demos/blob/master/demo06/index.html">source</a>)</h2>
+
+<p>Components have many specific attributes which are called ”props” in React and can be of any type.</p>
+
+<p>Sometimes you need a way to validate these props. You don't want users have the freedom to input anything into your components.</p>
+
+<p>React has a solution for this and it's called PropTypes.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> MyTitle <span class="pl-k">=</span> <span class="pl-smi">React</span>.<span class="pl-en">createClass</span>({
+  propTypes<span class="pl-k">:</span> {
+    title<span class="pl-k">:</span> <span class="pl-smi">React</span>.<span class="pl-c1">P</span>ropTypes.<span class="pl-smi">string</span>.<span class="pl-smi">isRequired</span>,
+  },
+
+  <span class="pl-en">render</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {
+     <span class="pl-k">return</span> <span class="pl-k">&lt;</span>h1<span class="pl-k">&gt;</span> {<span class="pl-smi">this</span>.<span class="pl-smi">props</span>.<span class="pl-c1">title</span>} <span class="pl-k">&lt;</span><span class="pl-k">/</span>h1<span class="pl-k">&gt;</span>;
+   }
+});</pre></div>
+
+<p>The above component of <code>Mytitle</code> has a props of <code>title</code>. PropTypes tells React that the title is required and its value should be string.</p>
+
+<p>Now we give <code>Title</code> a number value.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> data <span class="pl-k">=</span> <span class="pl-c1">123</span>;
+
+<span class="pl-smi">ReactDOM</span>.<span class="pl-en">render</span>(
+  <span class="pl-k">&lt;</span>MyTitle title<span class="pl-k">=</span>{data} <span class="pl-k">/</span><span class="pl-k">&gt;</span>,
+  <span class="pl-smi">document</span>.<span class="pl-c1">body</span>
+);</pre></div>
+
+<p>It means the props doesn't pass the validation, and the console will show you a error message.</p>
+
+<div class="highlight highlight-source-shell"><pre>Warning: Failed propType: Invalid prop <span class="pl-s"><span class="pl-pds">`</span>title<span class="pl-pds">`</span></span> of <span class="pl-c1">type</span> <span class="pl-s"><span class="pl-pds">`</span>number<span class="pl-pds">`</span></span> supplied to <span class="pl-s"><span class="pl-pds">`</span>MyTitle<span class="pl-pds">`</span></span>, expected <span class="pl-s"><span class="pl-pds">`</span>string<span class="pl-pds">`</span></span>.</pre></div>
+
+<p>Visit <a href="http://facebook.github.io/react/docs/reusable-components.html">official doc</a> for more PropTypes options.</p>
+
+<p>P.S. If you want to give the props a default value, use <code>getDefaultProps()</code>.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> MyTitle <span class="pl-k">=</span> <span class="pl-smi">React</span>.<span class="pl-en">createClass</span>({
+  <span class="pl-en">getDefaultProps</span> <span class="pl-k">:</span> <span class="pl-k">function</span> () {
+    <span class="pl-k">return</span> {
+      title <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Hello World<span class="pl-pds">'</span></span>
+    };
+  },
+
+  <span class="pl-en">render</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {
+     <span class="pl-k">return</span> <span class="pl-k">&lt;</span>h1<span class="pl-k">&gt;</span> {<span class="pl-smi">this</span>.<span class="pl-smi">props</span>.<span class="pl-c1">title</span>} <span class="pl-k">&lt;</span><span class="pl-k">/</span>h1<span class="pl-k">&gt;</span>;
+   }
+});
+
+<span class="pl-smi">ReactDOM</span>.<span class="pl-en">render</span>(
+  <span class="pl-k">&lt;</span>MyTitle <span class="pl-k">/</span><span class="pl-k">&gt;</span>,
+  <span class="pl-smi">document</span>.<span class="pl-c1">body</span>
+);</pre></div>
+
+<h2>
+<a id="demo07-finding-a-dom-node-source" class="anchor" href="#demo07-finding-a-dom-node-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo07: Finding a DOM node (<a href="https://github.com/ruanyf/react-demos/blob/master/demo07/index.html">source</a>)</h2>
+
+<p>Sometimes you need to reference a DOM node in a component. React gives you the <code>ref</code> attribute to find it.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> MyComponent <span class="pl-k">=</span> <span class="pl-smi">React</span>.<span class="pl-en">createClass</span>({
+  <span class="pl-en">handleClick</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {
+    <span class="pl-smi">this</span>.<span class="pl-smi">refs</span>.<span class="pl-smi">myTextInput</span>.<span class="pl-c1">focus</span>();
+  },
+  <span class="pl-en">render</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {
+    <span class="pl-k">return</span> (
+      <span class="pl-k">&lt;</span>div<span class="pl-k">&gt;</span>
+        <span class="pl-k">&lt;</span>input type<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>text<span class="pl-pds">"</span></span> ref<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>myTextInput<span class="pl-pds">"</span></span> <span class="pl-k">/</span><span class="pl-k">&gt;</span>
+        <span class="pl-k">&lt;</span>input type<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>button<span class="pl-pds">"</span></span> value<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Focus the text input<span class="pl-pds">"</span></span> onClick<span class="pl-k">=</span>{<span class="pl-smi">this</span>.<span class="pl-smi">handleClick</span>} <span class="pl-k">/</span><span class="pl-k">&gt;</span>
+      <span class="pl-k">&lt;</span><span class="pl-k">/</span>div<span class="pl-k">&gt;</span>
+    );
+  }
+});
+
+<span class="pl-smi">ReactDOM</span>.<span class="pl-en">render</span>(
+  <span class="pl-k">&lt;</span>MyComponent <span class="pl-k">/</span><span class="pl-k">&gt;</span>,
+  <span class="pl-smi">document</span>.<span class="pl-c1">getElementById</span>(<span class="pl-s"><span class="pl-pds">'</span>example<span class="pl-pds">'</span></span>)
+);</pre></div>
+
+<p>The desired DOM node should have a <code>ref</code> attribute, and <code>this.refs.[refName]</code> would return the corresponding DOM node. Please be minded that you could do that only after this component has been mounted into the DOM, otherwise you get <code>null</code>.</p>
+
+<h2>
+<a id="demo08-thisstate-source" class="anchor" href="#demo08-thisstate-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo08: this.state (<a href="https://github.com/ruanyf/react-demos/blob/master/demo08/index.html">source</a>)</h2>
+
+<p>React thinks of component as state machines, and uses <code>this.state</code> to hold component's state, <code>getInitialState()</code> to initialize <code>this.state</code>(invoked before a component is mounted), <code>this.setState()</code> to update <code>this.state</code> and re-render the component.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> LikeButton <span class="pl-k">=</span> <span class="pl-smi">React</span>.<span class="pl-en">createClass</span>({
+  <span class="pl-en">getInitialState</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {
+    <span class="pl-k">return</span> {liked<span class="pl-k">:</span> <span class="pl-c1">false</span>};
+  },
+  <span class="pl-en">handleClick</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">event</span>) {
+    <span class="pl-smi">this</span>.<span class="pl-en">setState</span>({liked<span class="pl-k">:</span> <span class="pl-k">!</span><span class="pl-smi">this</span>.<span class="pl-smi">state</span>.<span class="pl-smi">liked</span>});
+  },
+  <span class="pl-en">render</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {
+    <span class="pl-k">var</span> text <span class="pl-k">=</span> <span class="pl-smi">this</span>.<span class="pl-smi">state</span>.<span class="pl-smi">liked</span> <span class="pl-k">?</span> <span class="pl-s"><span class="pl-pds">'</span>like<span class="pl-pds">'</span></span> <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>haven<span class="pl-cce">\'</span>t liked<span class="pl-pds">'</span></span>;
+    <span class="pl-k">return</span> (
+      <span class="pl-k">&lt;</span>p onClick<span class="pl-k">=</span>{<span class="pl-smi">this</span>.<span class="pl-smi">handleClick</span>}<span class="pl-k">&gt;</span>
+        You {text} <span class="pl-smi">this</span>. <span class="pl-c1">C</span>lick to toggle.
+      <span class="pl-k">&lt;</span><span class="pl-k">/</span>p<span class="pl-k">&gt;</span>
+    );
+  }
+});
+
+<span class="pl-smi">ReactDOM</span>.<span class="pl-en">render</span>(
+  <span class="pl-k">&lt;</span>LikeButton <span class="pl-k">/</span><span class="pl-k">&gt;</span>,
+  <span class="pl-smi">document</span>.<span class="pl-c1">getElementById</span>(<span class="pl-s"><span class="pl-pds">'</span>example<span class="pl-pds">'</span></span>)
+);</pre></div>
+
+<p>You could use component attributes to register event handlers, just like <code>onClick</code>, <code>onKeyDown</code>, <code>onCopy</code>, etc. Official Document has all <a href="http://facebook.github.io/react/docs/events.html#supported-events">supported events</a>.</p>
+
+<h2>
+<a id="demo09-form-source" class="anchor" href="#demo09-form-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo09: Form (<a href="https://github.com/ruanyf/react-demos/blob/master/demo09/index.html">source</a>)</h2>
+
+<p>According to React's design philosophy, <code>this.state</code> describes the state of component and is mutated via user interactions, and <code>this.props</code> describes the properties of component and is stable and immutable.</p>
+
+<p>Since that, the <code>value</code> attribute of Form components, such as &lt;input&gt;, &lt;textarea&gt;, and &lt;option&gt;, is unaffected by any user input. If you wanted to access or update the value in response to user input, you could use the onChange event.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> Input <span class="pl-k">=</span> <span class="pl-smi">React</span>.<span class="pl-en">createClass</span>({
+  <span class="pl-en">getInitialState</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {
+    <span class="pl-k">return</span> {value<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Hello!<span class="pl-pds">'</span></span>};
+  },
+  <span class="pl-en">handleChange</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">event</span>) {
+    <span class="pl-smi">this</span>.<span class="pl-en">setState</span>({value<span class="pl-k">:</span> <span class="pl-smi">event</span>.<span class="pl-c1">target</span>.<span class="pl-c1">value</span>});
+  },
+  <span class="pl-en">render</span><span class="pl-k">:</span> <span class="pl-k">function</span> () {
+    <span class="pl-k">var</span> value <span class="pl-k">=</span> <span class="pl-smi">this</span>.<span class="pl-smi">state</span>.<span class="pl-c1">value</span>;
+    <span class="pl-k">return</span> (
+      <span class="pl-k">&lt;</span>div<span class="pl-k">&gt;</span>
+        <span class="pl-k">&lt;</span>input type<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>text<span class="pl-pds">"</span></span> value<span class="pl-k">=</span>{value} <span class="pl-c1">onChange</span><span class="pl-k">=</span>{<span class="pl-smi">this</span>.<span class="pl-smi">handleChange</span>} <span class="pl-k">/</span><span class="pl-k">&gt;</span>
+        <span class="pl-k">&lt;</span>p<span class="pl-k">&gt;</span>{value}<span class="pl-k">&lt;</span><span class="pl-k">/</span>p<span class="pl-k">&gt;</span>
+      <span class="pl-k">&lt;</span><span class="pl-k">/</span>div<span class="pl-k">&gt;</span>
+    );
+  }
+});
+
+<span class="pl-smi">ReactDOM</span>.<span class="pl-en">render</span>(<span class="pl-k">&lt;</span>Input<span class="pl-k">/</span><span class="pl-k">&gt;</span>, <span class="pl-smi">document</span>.<span class="pl-c1">body</span>);</pre></div>
+
+<p>More information on <a href="http://facebook.github.io/react/docs/forms.html">official document</a>.</p>
+
+<h2>
+<a id="demo10-component-lifecycle-source" class="anchor" href="#demo10-component-lifecycle-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo10: Component Lifecycle (<a href="https://github.com/ruanyf/react-demos/blob/master/demo10/index.html">source</a>)</h2>
+
+<p>Components have three main parts of <a href="https://facebook.github.io/react/docs/working-with-the-browser.html#component-lifecycle">their lifecycle</a>: Mounting(being inserted into the DOM), Updating(being re-rendered) and Unmounting(being removed from the DOM). React provides hooks into these lifecycle part. <code>will</code> methods are called right before something happens, and <code>did</code> methods which are called right after something happens.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> Hello <span class="pl-k">=</span> <span class="pl-smi">React</span>.<span class="pl-en">createClass</span>({
+  <span class="pl-en">getInitialState</span><span class="pl-k">:</span> <span class="pl-k">function</span> () {
+    <span class="pl-k">return</span> {
+      opacity<span class="pl-k">:</span> <span class="pl-c1">1.0</span>
+    };
+  },
+
+  <span class="pl-en">componentDidMount</span><span class="pl-k">:</span> <span class="pl-k">function</span> () {
+    <span class="pl-smi">this</span>.<span class="pl-smi">timer</span> <span class="pl-k">=</span> <span class="pl-c1">setInterval</span>(<span class="pl-k">function</span> () {
+      <span class="pl-k">var</span> opacity <span class="pl-k">=</span> <span class="pl-smi">this</span>.<span class="pl-smi">state</span>.<span class="pl-smi">opacity</span>;
+      opacity <span class="pl-k">-=</span> .<span class="pl-ii">05</span>;
+      <span class="pl-k">if</span> (opacity <span class="pl-k">&lt;</span> <span class="pl-c1">0.1</span>) {
+        opacity <span class="pl-k">=</span> <span class="pl-c1">1.0</span>;
+      }
+      <span class="pl-smi">this</span>.<span class="pl-en">setState</span>({
+        opacity<span class="pl-k">:</span> opacity
+      });
+    }.<span class="pl-en">bind</span>(<span class="pl-v">this</span>), <span class="pl-c1">100</span>);
+  },
+
+  <span class="pl-en">render</span><span class="pl-k">:</span> <span class="pl-k">function</span> () {
+    <span class="pl-k">return</span> (
+      <span class="pl-k">&lt;</span>div style<span class="pl-k">=</span>{{opacity<span class="pl-k">:</span> <span class="pl-smi">this</span>.<span class="pl-smi">state</span>.<span class="pl-smi">opacity</span>}}<span class="pl-k">&gt;</span>
+        Hello {<span class="pl-smi">this</span>.<span class="pl-smi">props</span>.<span class="pl-c1">name</span>}
+      <span class="pl-k">&lt;</span><span class="pl-k">/</span>div<span class="pl-k">&gt;</span>
+    );
+  }
+});
+
+<span class="pl-smi">ReactDOM</span>.<span class="pl-en">render</span>(
+  <span class="pl-k">&lt;</span>Hello name<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>world<span class="pl-pds">"</span></span><span class="pl-k">/</span><span class="pl-k">&gt;</span>,
+  <span class="pl-smi">document</span>.<span class="pl-c1">body</span>
+);</pre></div>
+
+<p>The following is <a href="http://facebook.github.io/react/docs/component-specs.html#lifecycle-methods">a whole list of lifecycle methods</a>.</p>
+
+<ul>
+<li>componentWillMount()</li>
+<li>componentDidMount()</li>
+<li>componentWillUpdate(object nextProps, object nextState)</li>
+<li>componentDidUpdate(object prevProps, object prevState)</li>
+<li>componentWillUnmount()</li>
+<li>componentWillReceiveProps(object nextProps): invoked when a mounted component receives new props.</li>
+<li>shouldComponentUpdate(object nextProps, object nextState): invoked when a component decides whether any changes warrant an update to the DOM.</li>
+</ul>
+
+<h2>
+<a id="demo11-ajax-source" class="anchor" href="#demo11-ajax-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo11: Ajax (<a href="https://github.com/ruanyf/react-demos/blob/master/demo11/index.html">source</a>)</h2>
+
+<p>How to get the data of a component from a server or an API provider? The answer is using Ajax to fetch data in the event handler of <code>componentDidMount</code>. When the server response arrives, store the data with <code>this.setState()</code> to trigger a re-render of your UI.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> UserGist <span class="pl-k">=</span> <span class="pl-smi">React</span>.<span class="pl-en">createClass</span>({
+  <span class="pl-en">getInitialState</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {
+    <span class="pl-k">return</span> {
+      username<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>,
+      lastGistUrl<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>
+    };
+  },
+
+  <span class="pl-en">componentDidMount</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {
+    $.<span class="pl-en">get</span>(<span class="pl-smi">this</span>.<span class="pl-smi">props</span>.<span class="pl-c1">source</span>, <span class="pl-k">function</span>(<span class="pl-smi">result</span>) {
+      <span class="pl-k">var</span> lastGist <span class="pl-k">=</span> result[<span class="pl-c1">0</span>];
+      <span class="pl-k">if</span> (<span class="pl-smi">this</span>.<span class="pl-en">isMounted</span>()) {
+        <span class="pl-smi">this</span>.<span class="pl-en">setState</span>({
+          username<span class="pl-k">:</span> <span class="pl-smi">lastGist</span>.<span class="pl-smi">owner</span>.<span class="pl-smi">login</span>,
+          lastGistUrl<span class="pl-k">:</span> <span class="pl-smi">lastGist</span>.<span class="pl-smi">html_url</span>
+        });
+      }
+    }.<span class="pl-en">bind</span>(<span class="pl-v">this</span>));
+  },
+
+  <span class="pl-en">render</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {
+    <span class="pl-k">return</span> (
+      <span class="pl-k">&lt;</span>div<span class="pl-k">&gt;</span>
+        {<span class="pl-smi">this</span>.<span class="pl-smi">state</span>.<span class="pl-smi">username</span>}<span class="pl-s"><span class="pl-pds">'</span><span class="pl-ii">s last gist is</span></span>
+<span class="pl-s"><span class="pl-ii">        &lt;a href={this.state.lastGistUrl}&gt;here&lt;/a&gt;.</span></span>
+<span class="pl-s"><span class="pl-ii">      &lt;/div&gt;</span></span>
+<span class="pl-s"><span class="pl-ii">    );</span></span>
+<span class="pl-s"><span class="pl-ii">  }</span></span>
+<span class="pl-s"><span class="pl-ii">});</span></span>
+<span class="pl-s"></span>
+<span class="pl-s"><span class="pl-ii">ReactDOM.render(</span></span>
+<span class="pl-s"><span class="pl-ii">  &lt;UserGist source="https://api.github.com/users/octocat/gists" /&gt;,</span></span>
+<span class="pl-s"><span class="pl-ii">  document.body</span></span>
+<span class="pl-s"><span class="pl-ii">);</span></span></pre></div>
+
+<h2>
+<a id="demo12-display-value-from-a-promise-source" class="anchor" href="#demo12-display-value-from-a-promise-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo12: Display value from a Promise (<a href="https://github.com/ruanyf/react-demos/tree/master/demo12/index.html">source</a>)</h2>
+
+<p>This demo is inspired by Nat Pryce's article <a href="http://natpryce.com/articles/000814.html">"Higher Order React Components"</a>.</p>
+
+<p>If a React component's data is received asynchronously, we can use a Promise object as the component's property also, just as the following.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">ReactDOM</span>.<span class="pl-en">render</span>(
+  <span class="pl-k">&lt;</span>RepoList
+    promise<span class="pl-k">=</span>{$.<span class="pl-en">getJSON</span>(<span class="pl-s"><span class="pl-pds">'</span>https://api.github.com/search/repositories?q=javascript&amp;sort=stars<span class="pl-pds">'</span></span>)}
+  <span class="pl-k">/</span><span class="pl-k">&gt;</span>,
+  <span class="pl-smi">document</span>.<span class="pl-c1">body</span>
+);</pre></div>
+
+<p>The above code takes data from Github's API, and the <code>RepoList</code> component gets a Promise object as its property.</p>
+
+<p>Now, while the promise is pending, the component displays a loading indicator. When the promise is resolved successfully, the component displays a list of repository information. If the promise is rejected, the component displays an error message.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> RepoList <span class="pl-k">=</span> <span class="pl-smi">React</span>.<span class="pl-en">createClass</span>({
+  <span class="pl-en">getInitialState</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {
+    <span class="pl-k">return</span> { loading<span class="pl-k">:</span> <span class="pl-c1">true</span>, error<span class="pl-k">:</span> <span class="pl-c1">null</span>, data<span class="pl-k">:</span> <span class="pl-c1">null</span>};
+  },
+
+  <span class="pl-en">componentDidMount</span>() {
+    <span class="pl-smi">this</span>.<span class="pl-smi">props</span>.<span class="pl-smi">promise</span>.<span class="pl-en">then</span>(
+      value <span class="pl-k">=&gt;</span> <span class="pl-smi">this</span>.<span class="pl-en">setState</span>({loading<span class="pl-k">:</span> <span class="pl-c1">false</span>, data<span class="pl-k">:</span> value}),
+      error <span class="pl-k">=&gt;</span> <span class="pl-smi">this</span>.<span class="pl-en">setState</span>({loading<span class="pl-k">:</span> <span class="pl-c1">false</span>, error<span class="pl-k">:</span> error}));
+  },
+
+  <span class="pl-en">render</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {
+    <span class="pl-k">if</span> (<span class="pl-smi">this</span>.<span class="pl-smi">state</span>.<span class="pl-smi">loading</span>) {
+      <span class="pl-k">return</span> <span class="pl-k">&lt;</span>span<span class="pl-k">&gt;</span>Loading...<span class="pl-k">&lt;</span><span class="pl-k">/</span>span<span class="pl-k">&gt;</span>;
+    }
+    <span class="pl-k">else</span> <span class="pl-k">if</span> (<span class="pl-smi">this</span>.<span class="pl-smi">state</span>.<span class="pl-smi">error</span> <span class="pl-k">!==</span> <span class="pl-c1">null</span>) {
+      <span class="pl-k">return</span> <span class="pl-k">&lt;</span>span<span class="pl-k">&gt;</span>Error<span class="pl-k">:</span> {<span class="pl-smi">this</span>.<span class="pl-smi">state</span>.<span class="pl-smi">error</span>.<span class="pl-smi">message</span>}<span class="pl-k">&lt;</span><span class="pl-k">/</span>span<span class="pl-k">&gt;</span>;
+    }
+    <span class="pl-k">else</span> {
+      <span class="pl-k">var</span> repos <span class="pl-k">=</span> <span class="pl-smi">this</span>.<span class="pl-smi">state</span>.<span class="pl-c1">data</span>.<span class="pl-smi">items</span>;
+      <span class="pl-k">var</span> repoList <span class="pl-k">=</span> <span class="pl-smi">repos</span>.<span class="pl-en">map</span>(<span class="pl-k">function</span> (<span class="pl-smi">repo</span>) {
+        <span class="pl-k">return</span> (
+          <span class="pl-k">&lt;</span>li<span class="pl-k">&gt;</span>
+            <span class="pl-k">&lt;</span>a href<span class="pl-k">=</span>{<span class="pl-smi">repo</span>.<span class="pl-smi">html_url</span>}<span class="pl-k">&gt;</span>{<span class="pl-smi">repo</span>.<span class="pl-c1">name</span>}<span class="pl-k">&lt;</span><span class="pl-k">/</span>a<span class="pl-k">&gt;</span> ({<span class="pl-smi">repo</span>.<span class="pl-smi">stargazers_count</span>} stars) <span class="pl-k">&lt;</span>br<span class="pl-k">/</span><span class="pl-k">&gt;</span> {<span class="pl-smi">repo</span>.<span class="pl-c1">description</span>}
+          <span class="pl-k">&lt;</span><span class="pl-k">/</span>li<span class="pl-k">&gt;</span>
+        );
+      });
+      <span class="pl-k">return</span> (
+        <span class="pl-k">&lt;</span>main<span class="pl-k">&gt;</span>
+          <span class="pl-k">&lt;</span>h1<span class="pl-k">&gt;</span>Most Popular JavaScript Projects <span class="pl-k">in</span> Github<span class="pl-k">&lt;</span><span class="pl-k">/</span>h1<span class="pl-k">&gt;</span>
+          <span class="pl-k">&lt;</span>ol<span class="pl-k">&gt;</span>{repoList}<span class="pl-k">&lt;</span><span class="pl-k">/</span>ol<span class="pl-k">&gt;</span>
+        <span class="pl-k">&lt;</span><span class="pl-k">/</span>main<span class="pl-k">&gt;</span>
+      );
+    }
+  }
+});</pre></div>
+
+<h2>
+<a id="demo13-server-side-rendering-source" class="anchor" href="#demo13-server-side-rendering-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo13: Server-side rendering (<a href="https://github.com/ruanyf/react-demos/tree/master/demo13/src">source</a>)</h2>
+
+<p>This demo is copied from <a href="https://github.com/mhart/react-server-example">github.com/mhart/react-server-example</a>, but I rewrote it with JSX syntax.</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"># install the dependencies in demo12 directory</span>
+$ npm install
+
+<span class="pl-c"># translate all jsx file in src subdirectory to js file</span>
+$ npm run build
+
+<span class="pl-c"># launch http server</span>
+$ node server.js</pre></div>
+
+<h2>
+<a id="extras" class="anchor" href="#extras" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extras</h2>
+
+<h3>
+<a id="precompiling-jsx" class="anchor" href="#precompiling-jsx" aria-hidden="true"><span class="octicon octicon-link"></span></a>Precompiling JSX</h3>
+
+<p>All above demos don't use JSX compilation for clarity. In production environment, ensure to precompile JSX files before putting them online.</p>
+
+<p>First, install the command-line tools <a href="https://babeljs.io/docs/usage/cli/">Babel</a>.</p>
+
+<div class="highlight highlight-source-shell"><pre>$ npm install -g babel</pre></div>
+
+<p>Then precompile your JSX files(.jsx) into JavaScript(.js). Compiling the entire src directory and output it to the build directory, you may use the option <code>--out-dir</code> or <code>-d</code>.</p>
+
+<div class="highlight highlight-source-shell"><pre>$ babel src --out-dir build</pre></div>
+
+<p>Put the compiled JS files into HTML.</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span>&gt;
+  &lt;<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">title</span>&gt;Hello React!&lt;/<span class="pl-ent">title</span>&gt;
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>build/react.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>build/react-dom.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+    <span class="pl-c">&lt;!-- No need for Browser.js! --&gt;</span>
+  &lt;/<span class="pl-ent">head</span>&gt;
+  &lt;<span class="pl-ent">body</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>example<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">div</span>&gt;
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>build/helloworld.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+  &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<h2>
+<a id="useful-links" class="anchor" href="#useful-links" aria-hidden="true"><span class="octicon octicon-link"></span></a>Useful links</h2>
+
+<ul>
+<li><a href="http://facebook.github.io/react">React's official site</a></li>
+<li><a href="https://github.com/facebook/react/tree/master/examples">React's official examples</a></li>
+<li>
+<a href="http://facebook.github.io/react/docs/glossary.html">React (Virtual) DOM Terminology</a>, by Sebastian Markbåge</li>
+<li>
+<a href="http://www.jackcallister.com/2015/01/05/the-react-quick-start-guide.html">The React Quick Start Guide</a>, by Jack Callister</li>
+<li>
+<a href="https://scotch.io/tutorials/learning-react-getting-started-and-concepts">Learning React.js: Getting Started and Concepts</a>, by Ken Wheeler</li>
+<li>
+<a href="http://ryanclark.me/getting-started-with-react/">Getting started with React</a>, by Ryan Clark</li>
+<li>
+<a href="https://zapier.com/engineering/react-js-tutorial-guide-gotchas/">React JS Tutorial and Guide to the Gotchas</a>, by Justin Deal</li>
+<li>
+<a href="https://github.com/BinaryMuse/react-primer">React Primer</a>, by Binary Muse</li>
+<li>
+<a href="http://blog.zigomir.com/react.js/jquery/2015/01/11/jquery-versus-react-thinking.html">jQuery versus React.js thinking</a>, by zigomir</li>
+</ul>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>BSD licensed</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/jiaxf/ReactStudy">Reactstudy</a> is maintained by <a href="https://github.com/jiaxf">jiaxf</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
